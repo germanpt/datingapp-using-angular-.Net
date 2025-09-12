@@ -19,6 +19,25 @@
       <a>Messages</a>
     </nav>
     <div class="flex align-middle ml-auto gap-3">
+      @if(accountService.currentUser(); as user) {
+      <div class="dropdown dropdown-end">
+        <div
+          tabindex="0"
+          role="button"
+          class="flex rounded-full items-center text-white cursor-pointer gap-3"
+        >
+          <img src="/user.png" class="h-8 w-8 rounded-full" />
+          <span>{{ user.displayName }}</span>
+        </div>
+        <ul
+          tabindex="0"
+          class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+        >
+          <li><a>Edit Profile</a></li>
+          <li><a (click)="logout()">LogOut</a></li>
+        </ul>
+      </div>
+      } @else {
       <form #loginForm="ngForm" (ngSubmit)="login()" class="flex items-center gap-3">
         <input
           [(ngModel)]="creds.email"
@@ -36,6 +55,7 @@
         />
         <button type="submit" class="btn">Login</button>
       </form>
+      }
     </div>
   </div>
 </header>
